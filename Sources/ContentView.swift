@@ -202,14 +202,14 @@ Thanks to:
                     PlistEditor.updatePlistValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"], value: self.toggles["DynamicIsland2796"]! ? 2796 : self.Previous_isDynamicIsland)
                 }
             case "DynamicIsland2622":
-                if #available(iOS 18.0, *) {
+                if #available(iOS 19.0, *) {
                     self.toggles["DynamicIsland2556"] = false
                     self.toggles["DynamicIsland2796"] = false
                     self.toggles["DynamicIsland2868"] = false
                     PlistEditor.updatePlistValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"], value: self.toggles["DynamicIsland2622"]! ? 2622 : self.Previous_isDynamicIsland)
                 }
             case "DynamicIsland2868":
-                if #available(iOS 18.0, *) {
+                if #available(iOS 19.0, *) {
                     self.toggles["DynamicIsland2556"] = false
                     self.toggles["DynamicIsland2796"] = false
                     self.toggles["DynamicIsland2622"] = false
