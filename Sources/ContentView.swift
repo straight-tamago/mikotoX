@@ -1,6 +1,12 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
+extension UIDocumentPickerViewController {
+    @objc func fix_init(forOpeningContentTypes contentTypes: [UTType], asCopy: Bool) -> UIDocumentPickerViewController {
+        return fix_init(forOpeningContentTypes: contentTypes, asCopy: true)
+    }
+}
+
 struct ContentView: View {
     @State var originalMobileGestalt: URL?
     @State var modifiedMobileGestalt: URL?
@@ -24,7 +30,6 @@ struct ContentView: View {
             return "Unknown"
         }
     }
-    
 
     @State private var toggles: [String: Bool] = [
         "DynamicIsland2556": false, "DynamicIsland2796": false, "ChargeLimit": false, "BootChime": false,
@@ -167,6 +172,12 @@ Thanks to:
                 }
             })
         }
+    }
+
+    init() {
+        let fixMethod = class_getInstanceMethod(UIDocumentPickerViewController.self, Selector("fix_initForOpeningContentTypes:asCopy:"))!
+        let origMethod = class_getInstanceMethod(UIDocumentPickerViewController.self, Selector("initForOpeningContentTypes:asCopy:"))!
+        method_exchangeImplementations(origMethod, fixMethod)
     }
 
     func applyChanges() {

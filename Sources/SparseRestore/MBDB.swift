@@ -190,7 +190,7 @@ struct MobileBackupDatabase {
     }
     
     func toData() -> Data {
-        var result = NSMutableData()
+        let result = NSMutableData()
         result.append(Data(magic.utf8))
         result.append(version, length: version.count)
         for record in records {
