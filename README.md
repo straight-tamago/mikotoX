@@ -45,6 +45,7 @@ Initial Release
 Please use the tool responsibly and ensure you follow all precautions to avoid any issues!
 
 ## Thanks to
+- @khanhduytran0: SparseBox
 - @SideStore: em_proxy and minimuxer
 - @JJTech0130: SparseRestore and backup exploit
 - @PoomSmart: MobileGestalt dump
