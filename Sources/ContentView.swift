@@ -12,6 +12,7 @@ struct ContentView: View {
     @State var lastError: String?
     @State var path = NavigationPath()
     @State var isReady = false
+    
 
     @State private var toggles: [String: Bool] = [
         "DynamicIsland2556": false, "DynamicIsland2796": false, "DynamicIsland2622": false,
@@ -187,25 +188,33 @@ Thanks to:
     private func processSelectedOptions(_ name: String) {
         switch name {
             case "DynamicIsland2556":
-                self.toggles["DynamicIsland2796"] = false
-                self.toggles["DynamicIsland2868"] = false
-                self.toggles["DynamicIsland2622"] = false
-                PlistEditor.updatePlistValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"], value: self.toggles["DynamicIsland2556"]! ? 2556 : self.Previous_isDynamicIsland)
+                if #available(iOS 16.0, *) {
+                    self.toggles["DynamicIsland2796"] = false
+                    self.toggles["DynamicIsland2868"] = false
+                    self.toggles["DynamicIsland2622"] = false
+                    PlistEditor.updatePlistValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"], value: self.toggles["DynamicIsland2556"]! ? 2556 : self.Previous_isDynamicIsland)
+                }
             case "DynamicIsland2796":
-                self.toggles["DynamicIsland2556"] = false
-                self.toggles["DynamicIsland2868"] = false
-                self.toggles["DynamicIsland2622"] = false
-                PlistEditor.updatePlistValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"], value: self.toggles["DynamicIsland2796"]! ? 2796 : self.Previous_isDynamicIsland)
+                if #available(iOS 16.0, *) {
+                    self.toggles["DynamicIsland2556"] = false
+                    self.toggles["DynamicIsland2868"] = false
+                    self.toggles["DynamicIsland2622"] = false
+                    PlistEditor.updatePlistValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"], value: self.toggles["DynamicIsland2796"]! ? 2796 : self.Previous_isDynamicIsland)
+                }
             case "DynamicIsland2622":
-                self.toggles["DynamicIsland2556"] = false
-                self.toggles["DynamicIsland2796"] = false
-                self.toggles["DynamicIsland2868"] = false
-                PlistEditor.updatePlistValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"], value: self.toggles["DynamicIsland2622"]! ? 2622 : self.Previous_isDynamicIsland)
+                if #available(iOS 18.0, *) {
+                    self.toggles["DynamicIsland2556"] = false
+                    self.toggles["DynamicIsland2796"] = false
+                    self.toggles["DynamicIsland2868"] = false
+                    PlistEditor.updatePlistValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"], value: self.toggles["DynamicIsland2622"]! ? 2622 : self.Previous_isDynamicIsland)
+                }
             case "DynamicIsland2868":
-                self.toggles["DynamicIsland2556"] = false
-                self.toggles["DynamicIsland2796"] = false
-                self.toggles["DynamicIsland2622"] = false
-                PlistEditor.updatePlistValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"], value: self.toggles["DynamicIsland2868"]! ? 2868 : self.Previous_isDynamicIsland)
+                if #available(iOS 18.0, *) {
+                    self.toggles["DynamicIsland2556"] = false
+                    self.toggles["DynamicIsland2796"] = false
+                    self.toggles["DynamicIsland2622"] = false
+                    PlistEditor.updatePlistValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"], value: self.toggles["DynamicIsland2868"]! ? 2868 : self.Previous_isDynamicIsland)
+                }
             case "ChargeLimit":
                 PlistEditor.updatePlistValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "37NVydb//GP/GrhuTN+exg"], value: self.toggles["ChargeLimit"]! ? 1 : 0)
             case "BootChime":
