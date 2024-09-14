@@ -59,10 +59,10 @@ struct LogView: View {
         let deviceList = MobileDevice.deviceList()
         guard deviceList.count == 1 else {
             print("Invalid device count: \(deviceList.count)")
-            self.udid = "invalid"
+            _udid = State(wrappedValue: "invalid")
             return
         }
-        self.udid = deviceList.first!
+        _udid = State(wrappedValue: deviceList.first!)
     }
     
     func performRestore() {
