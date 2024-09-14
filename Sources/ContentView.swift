@@ -12,6 +12,18 @@ struct ContentView: View {
     @State var lastError: String?
     @State var path = NavigationPath()
     @State var isReady = false
+
+    func getOSBuildVersion() -> String {
+        var osVersionString = [CChar](repeating: 0, count: 16)
+        var size: size_t = osVersionString.count - 1
+        let result = sysctlbyname("kern.osversion", &osVersionString, &size, nil, 0)
+        
+        if result == 0 {
+            return String(cString: osVersionString)
+        } else {
+            return "Unknown"
+        }
+    }
     
 
     @State private var toggles: [String: Bool] = [
@@ -124,7 +136,8 @@ Thanks to:
             .navigationTitle("mikotoX (SparseBox)")
         }
         .onAppear {
-            let iOSBuildNumber = ProcessInfo.processInfo.operatingSystemVersionString
+            //let iOSBuildNumber = ProcessInfo.processInfo.operatingSystemVersionString
+            let iOSBuildNumber = getOSBuildVersion()
             if iOSBuildNumber == "22A3354" {
                 toggles["DynamicIsland2622"] = false
                 toggles["DynamicIsland2868"] = false
