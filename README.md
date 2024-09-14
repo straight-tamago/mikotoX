@@ -7,7 +7,8 @@
 TrollRestore brings numerous customization features to iOS devices, allowing you to tweak your system for a more personalized experience. **Use at your own risk**, as there is a high risk of bootlooping. **Make sure to backup your phone before use!**
 
 ### Supported Features:  
-- **Dynamic Island** (iOS 16.0+)
+- **Dynamic Island 2796, 2556** (iOS 16.0+)
+- **Dynamic Island 2662 2868** (iOS 18.0RC+)
 - **Charge Limit** (iOS 17.0+)
 - **Boot Chime** (iOS 17.0+)
 - **Stage Manager** (iOS 16.0+)
