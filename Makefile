@@ -37,6 +37,7 @@ mikotoX_FILES = \
   Sources/SparseRestore/MBDB.swift \
   Sources/SparseRestore/Backup.swift \
   Sources/PlistEditor.swift \
+  Sources/Funcs.swift \
   Sources/FilePicker.swift \
   Sources/FilePickerUIRepresentable.swift \
   Sources/LogView.swift \
