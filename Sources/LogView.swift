@@ -101,6 +101,22 @@ struct LogView: View {
             return
         }
     }
+
+    func DoRestore(from: URL, to: URL) {
+        let folder = to
+
+        do {
+            try? FileManager.default.removeItem(at: folder)
+            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: false)
+
+            let mbdb = createBackupFile(from: from, to: to)
+            try mbdb.writeTo(directory: folder)
+
+            log.append("Backup file created at: \(to.path)\n")
+        } catch {
+            log.append("Error: \(error.localizedDescription)\n")
+        }
+    }
     
     func createBackupFile(from: URL, to: URL) -> Backup {
         // open the file and read the contents

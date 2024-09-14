@@ -26,6 +26,11 @@ struct ContentView: View {
     @State var reboot = true
     @State var isReady = false
 
+    @State var showCustomFilePicker = false
+    @State var selectedFile: URL?
+    @State var customFilePath: String = ""
+    @State var isCustomPathEnabled = false
+
     @State private var toggles: [ToggleST] = []
     
     func startMinimuxer() {
@@ -91,6 +96,32 @@ struct ContentView: View {
                         appState.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
                     }
                 })
+
+                 Section {
+                    Toggle("Enable Custom Path", isOn: $isCustomPathEnabled)
+                    
+                    if isCustomPathEnabled {
+                        Button("Select custom path file") {
+                            showCustomFilePicker.toggle()
+                        }
+                        
+                        if let selectedFile = selectedFile {
+                            Text("Selected file: \(selectedFile.lastPathComponent)")
+                        }
+                        
+                        TextField("Enter destination path", text: $customFilePath)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding()
+                        
+                        Button("Start Restore") {
+                            if let from = selectedFile {
+                                let to = URL(fileURLWithPath: customFilePath)
+                                DoRestore(from: from, to: to)
+                            }
+                        }
+                        .disabled(selectedFile == nil || customFilePath.isEmpty)
+                    }
+                }
 
                 Section {
                     ForEach($toggles.indices, id: \.self) { index in
