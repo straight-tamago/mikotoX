@@ -77,7 +77,7 @@ struct LogView: View {
             try mbdb.writeTo(directory: folder)
             
             // Restore now
-            var restoreArgs = [
+            let restoreArgs = [
                 "idevicebackup2",
                 "-n", "restore", "--no-reboot", "--system",
                 documentsDirectory.path(percentEncoded: false)
