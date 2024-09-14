@@ -14,16 +14,23 @@ func getOSBuildVersion() -> String {
     }
 }
 
-func compareVersion(_ version1: String, _ version2: String) -> Bool {
-    let version1Components = version1.split(separator: ".").map { Int($0) ?? 0 }
-    let version2Components = version2.split(separator: ".").map { Int($0) ?? 0 }
+struct Version: Comparable {
+    let components: [Int]
     
-    let maxLength = max(version1Components.count, version2Components.count)
+    init(_ version: String) {
+        self.components = version.split(separator: ".").map { Int($0) ?? 0 }
+    }
     
-    let paddedVersion1 = version1Components + Array(repeating: 0, count: maxLength - version1Components.count)
-    let paddedVersion2 = version2Components + Array(repeating: 0, count: maxLength - version2Components.count)
+    static func < (lhs: Version, rhs: Version) -> Bool {
+        let maxLength = max(lhs.components.count, rhs.components.count)
+        let paddedLhs = lhs.components + Array(repeating: 0, count: maxLength - lhs.components.count)
+        let paddedRhs = rhs.components + Array(repeating: 0, count: maxLength - rhs.components.count)
+        return paddedLhs.lexicographicallyPrecedes(paddedRhs)
+    }
     
-    return paddedVersion1.lexicographicallyPrecedes(paddedVersion2) || paddedVersion1 == paddedVersion2
+    static func == (lhs: Version, rhs: Version) -> Bool {
+        lhs.components == rhs.components
+    }
 }
 
 extension UIDocumentPickerViewController {

@@ -3,7 +3,6 @@ import UniformTypeIdentifiers
 
 struct ToggleST {
     var label: String
-    var requiredVersion: String
     var value: [ToggleValueST]
     var isOn: Bool = false
     var isDisabled = false
@@ -168,34 +167,33 @@ Thanks to:
             addComponents()
         }
     }
-
+    
     func addComponents() { 
         toggles = [
             ToggleST(
                 label: "Dynamic Island (17.4+ method) (2556)",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"],
                         enabled: 2556,
                         disabled: PlistEditor.readValue(filePath: self.originalMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"]) as Any
                     )
-                ]
+                ],
+                isDisabled: Version(UIDevice.current.systemVersion) < Version("16.0")
             ),
             ToggleST(
                 label: "Dynamic Island (17.4+ method) (2796)",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"],
                         enabled: 2796,
                         disabled: PlistEditor.readValue(filePath: self.originalMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"]) as Any
                     )
-                ]
+                ],
+                isDisabled: Version(UIDevice.current.systemVersion) < Version("16.0")
             ),
             ToggleST(
                 label: "Dynamic Island (17.4+ method) (2622)",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"],
@@ -207,7 +205,6 @@ Thanks to:
             ),
             ToggleST(
                 label: "Dynamic Island (17.4+ method) (2868)",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"],
@@ -219,18 +216,17 @@ Thanks to:
             ),
             ToggleST(
                 label: "Charge Limit",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "37NVydb//GP/GrhuTN+exg"],
                         enabled: 1,
                         disabled: 0
                     )
-                ]
+                ],
+                isDisabled: Version(UIDevice.current.systemVersion) < Version("17.0")
             ),
             ToggleST(
                 label: "Boot Chime",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "QHxt+hGLaBPbQJbXiUJX3w"],
@@ -241,18 +237,17 @@ Thanks to:
             ),
             ToggleST(
                 label: "Stage Manager",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "qeaj75wk3HF4DwQ8qbIi7g"],
                         enabled: 1,
                         disabled: 0
                     )
-                ]
+                ],
+                isDisabled: Version(UIDevice.current.systemVersion) < Version("16.0")
             ),
             ToggleST(
                 label: "Disable Shutter Sound",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "h63QSdBCiT/z0WU6rdQv6Q"],
@@ -268,7 +263,6 @@ Thanks to:
             ),
             ToggleST(
                 label: "Always on Display (18.0+)",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "2OOJf1VhaM7NxfRok3HbWQ"],
@@ -280,11 +274,11 @@ Thanks to:
                         enabled: 1,
                         disabled: 0
                     ),
-                ]
+                ],
+                isDisabled: Version(UIDevice.current.systemVersion) < Version("18.0")
             ),
             ToggleST(
                 label: "Apple Pencil",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "yhHcB0iH0d1XzPO/CFd3ow"],
@@ -300,18 +294,17 @@ Thanks to:
             ),
             ToggleST(
                 label: "Action Button",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "cT44WE1EohiwRzhsZ8xEsw"],
                         enabled: 1,
                         disabled: 0
                     )
-                ]
+                ],
+                isDisabled: Version(UIDevice.current.systemVersion) < Version("17.0")
             ),
             ToggleST(
                 label: "Internal Storage",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "LBJfwOEzExRxzlAnSuI7eg"],
@@ -322,7 +315,6 @@ Thanks to:
             ),
             ToggleST(
                 label: "Tap to Wake (iPhone SE)",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "yZf3GTRMGTuwSV/lD7Cagw"],
@@ -334,29 +326,28 @@ Thanks to:
             ),
             ToggleST(
                 label: "SOS Collision",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "HCzWusHQwZDea6nNhaKndw"],
                         enabled: 1,
                         disabled: 0
                     )
-                ]
+                ],
+                isDisabled: Version(UIDevice.current.systemVersion) < Version("16.0")
             ),
             ToggleST(
                 label: "Apple Intelligence",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "A62OafQ85EJAiiqKn4agtg"],
                         enabled: 1,
                         disabled: 0
                     )
-                ]
+                ],
+                isDisabled: Version(UIDevice.current.systemVersion) < Version("18.1")
             ),
             ToggleST(
                 label: "LandScape FaceID",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "eP/CPXY0Q1CoIqAWn/J97g"],
@@ -367,7 +358,6 @@ Thanks to:
             ),
             ToggleST(
                 label: "Disable Wallpaper Parallax",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "UIParallaxCapability"],
@@ -378,18 +368,17 @@ Thanks to:
             ),
             ToggleST(
                 label: "Allow installing iPadOS apps",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "9MZ5AdH43csAUajl/dU+IQ"],
                         enabled: [1, 2],
                         disabled: [1, 2]
                     )
-                ]
+                ],
+                isDisabled: UIDevice.current.userInterfaceIdiom != .pad
             ),
             ToggleST(
                 label: "Developer Mode (Metal HUD)",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "EqrsVvjcYDdxHBiQmGhAWw"],
@@ -400,30 +389,25 @@ Thanks to:
             ),
             ToggleST(
                 label: "Camera Control",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "CwvKxM2cEogD3p+HYgaW0Q"],
                         enabled: 1,
                         disabled: 0
-                    ),
-                    ToggleValueST(
-                        keyPath: ["CacheExtra", "oOV1jhJbdV3AddkcCg0AEA"],
-                        enabled: 1,
-                        disabled: 0
                     )
-                ]
+                ],
+                isDisabled: Version(UIDevice.current.systemVersion) < Version("18.0")
             ),
             ToggleST(
                 label: "Sleep Apnea",
-                requiredVersion: "17.0",
                 value: [
                     ToggleValueST(
                         keyPath: ["CacheExtra", "e0HV2blYUDBk/MsMEQACNA"],
                         enabled: 1,
                         disabled: 0
                     )
-                ]
+                ],
+                isDisabled: Version(UIDevice.current.systemVersion) < Version("18.0")
             )
         ]
     }
