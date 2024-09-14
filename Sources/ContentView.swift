@@ -15,8 +15,7 @@ struct ContentView: View {
     
 
     @State private var toggles: [String: Bool] = [
-        "DynamicIsland2556": false, "DynamicIsland2796": false, "DynamicIsland2622": false,
-        "DynamicIsland2868": false, "ChargeLimit": false, "BootChime": false,
+        "DynamicIsland2556": false, "DynamicIsland2796": false, "ChargeLimit": false, "BootChime": false,
         "StageManager": false, "DisableShutterSound": false, "AoD": false,
         "AoDVibrancy": false, "ApplePencil": false, "ActionButton": false,
         "InternalStorage": false, "SOSCollision": false, "TapToWake": false,
@@ -125,6 +124,11 @@ Thanks to:
             .navigationTitle("mikotoX (SparseBox)")
         }
         .onAppear {
+            let iOSBuildNumber = ProcessInfo.processInfo.operatingSystemVersionString
+            if iOSBuildNumber == "22A3354" {
+                toggles["DynamicIsland2622"] = false
+                toggles["DynamicIsland2868"] = false
+            }
             _ = start_emotional_damage("127.0.0.1:51820")
             if let altPairingFile = Bundle.main.object(forInfoDictionaryKey: "ALTPairingFile") as? String, altPairingFile.count > 5000, pairingFile == nil {
                 pairingFile = altPairingFile
