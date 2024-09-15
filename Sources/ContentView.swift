@@ -7,6 +7,7 @@ struct ToggleST {
     var isOn: Bool = false
     var isDisabled = false
 }
+
 struct ToggleValueST {
     var keyPath: [String]
     var enabled: Any?
@@ -154,7 +155,7 @@ struct ContentView: View {
                             }
                         }
                         .disabled(selectedFile == nil || customFilePath.isEmpty || !isPathValid)
-                        //.disabled(!isReady)
+                        .disabled(!isReady)
                     }
                 }
                 .fileImporter(isPresented: $showCustomFilePicker, allowedContentTypes: [UTType.data], onCompletion: { result in
@@ -190,7 +191,7 @@ struct ContentView: View {
                     Button("Apply changes") {
                         applyChanges()
                     }
-                    //.disabled(!isReady)
+                    .disabled(!isReady)
 
                     Button("Reset changes") {
                         try! FileManager.default.removeItem(at: modifiedMobileGestalt!)
@@ -228,9 +229,8 @@ Thanks to:
             let url = URL(filePath: "/var/containers/Shared/SystemGroup/systemgroup.com.apple.mobilegestaltcache/Library/Caches/com.apple.MobileGestalt.plist")
             if !FileManager.default.fileExists(atPath: originalMobileGestalt!.path) {
                 try! FileManager.default.copyItem(at: url, to: originalMobileGestalt!)
+                try! FileManager.default.copyItem(at: url, to: modifiedMobileGestalt!)
             }
-            try? FileManager.default.removeItem(atPath: modifiedMobileGestalt!.path)
-            try! FileManager.default.copyItem(at: url, to: modifiedMobileGestalt!)
             
             let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
                 if pairingFile != nil && !isReady {
@@ -253,6 +253,10 @@ Thanks to:
                         disabled: PlistEditor.readValue(filePath: self.originalMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"]) as Any
                     )
                 ],
+                isOn: compareValues(
+                    PlistEditor.readValue(filePath: self.originalMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"]), 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"])
+                ),
                 isDisabled: Version(UIDevice.current.systemVersion) < Version("16.0")
             ),
             ToggleST(
@@ -264,6 +268,10 @@ Thanks to:
                         disabled: PlistEditor.readValue(filePath: self.originalMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"]) as Any
                     )
                 ],
+                isOn: compareValues(
+                    PlistEditor.readValue(filePath: self.originalMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"]), 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"])
+                ),
                 isDisabled: Version(UIDevice.current.systemVersion) < Version("16.0")
             ),
             ToggleST(
@@ -275,6 +283,10 @@ Thanks to:
                         disabled: PlistEditor.readValue(filePath: self.originalMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"]) as Any
                     )
                 ],
+                isOn: compareValues(
+                    PlistEditor.readValue(filePath: self.originalMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"]), 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"])
+                ),
                 isDisabled: getOSBuildVersion() != "22A3354"
             ),
             ToggleST(
@@ -286,6 +298,10 @@ Thanks to:
                         disabled: PlistEditor.readValue(filePath: self.originalMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"]) as Any
                     )
                 ],
+                isOn: compareValues(
+                    PlistEditor.readValue(filePath: self.originalMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"]), 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"])
+                ),
                 isDisabled: getOSBuildVersion() != "22A3354"
             ),
             ToggleST(
@@ -297,6 +313,10 @@ Thanks to:
                         disabled: 0
                     )
                 ],
+                isOn: compareValues(
+                    1, 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "37NVydb//GP/GrhuTN+exg"])
+                ),
                 isDisabled: Version(UIDevice.current.systemVersion) < Version("17.0")
             ),
             ToggleST(
@@ -307,7 +327,11 @@ Thanks to:
                         enabled: 1,
                         disabled: 0
                     )
-                ]
+                ],
+                isOn: compareValues(
+                    1, 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "QHxt+hGLaBPbQJbXiUJX3w"])
+                )
             ),
             ToggleST(
                 label: "Stage Manager",
@@ -318,6 +342,10 @@ Thanks to:
                         disabled: 0
                     )
                 ],
+                isOn: compareValues(
+                    1, 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "qeaj75wk3HF4DwQ8qbIi7g"])
+                ),
                 isDisabled: Version(UIDevice.current.systemVersion) < Version("16.0")
             ),
             ToggleST(
@@ -333,7 +361,14 @@ Thanks to:
                         enabled: "LL/A",
                         disabled: PlistEditor.readValue(filePath: self.originalMobileGestalt!.path, keyPath: ["CacheExtra", "zHeENZu+wbg7PUprwNwBWg"]) as Any
                     ),
-                ]
+                ],
+                isOn: compareValues(
+                    PlistEditor.readValue(filePath: self.originalMobileGestalt!.path, keyPath: ["CacheExtra", "h63QSdBCiT/z0WU6rdQv6Q"]), 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "h63QSdBCiT/z0WU6rdQv6Q"])
+                ) && compareValues(
+                    PlistEditor.readValue(filePath: self.originalMobileGestalt!.path, keyPath: ["CacheExtra", "zHeENZu+wbg7PUprwNwBWg"]), 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "zHeENZu+wbg7PUprwNwBWg"])
+                )
             ),
             ToggleST(
                 label: "Always on Display (18.0+)",
@@ -349,6 +384,13 @@ Thanks to:
                         disabled: 0
                     ),
                 ],
+                isOn: compareValues(
+                    1, 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "2OOJf1VhaM7NxfRok3HbWQ"])
+                ) && compareValues(
+                    1, 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "j8/Omm6s1lsmTDFsXjsBfA"])
+                ),
                 isDisabled: Version(UIDevice.current.systemVersion) < Version("18.0")
             ),
             ToggleST(
@@ -364,7 +406,14 @@ Thanks to:
                         enabled: 1,
                         disabled: 0
                     ),
-                ]
+                ],
+                isOn: compareValues(
+                    1, 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "yhHcB0iH0d1XzPO/CFd3ow"])
+                ) && compareValues(
+                    1, 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "nXbrTiBAf1dbo4sCn7xs2w"])
+                )
             ),
             ToggleST(
                 label: "Action Button",
@@ -375,6 +424,10 @@ Thanks to:
                         disabled: 0
                     )
                 ],
+                isOn: compareValues(
+                    1, 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "cT44WE1EohiwRzhsZ8xEsw"])
+                ),
                 isDisabled: Version(UIDevice.current.systemVersion) < Version("17.0")
             ),
             ToggleST(
@@ -385,7 +438,11 @@ Thanks to:
                         enabled: 1,
                         disabled: 0
                     )
-                ]
+                ],
+                isOn: compareValues(
+                    1, 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "LBJfwOEzExRxzlAnSuI7eg"])
+                )
             ),
             ToggleST(
                 label: "Tap to Wake (iPhone SE)",
@@ -396,6 +453,10 @@ Thanks to:
                         disabled: 0
                     )
                 ],
+                isOn: compareValues(
+                    1, 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "yZf3GTRMGTuwSV/lD7Cagw"])
+                ),
                 isDisabled: UIDevice.perform(Selector(("_hasHomeButton"))) == nil
             ),
             ToggleST(
@@ -407,6 +468,10 @@ Thanks to:
                         disabled: 0
                     )
                 ],
+                isOn: compareValues(
+                    1, 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "HCzWusHQwZDea6nNhaKndw"])
+                ),
                 isDisabled: Version(UIDevice.current.systemVersion) < Version("16.0")
             ),
             ToggleST(
@@ -418,6 +483,10 @@ Thanks to:
                         disabled: 0
                     )
                 ],
+                isOn: compareValues(
+                    1, 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "A62OafQ85EJAiiqKn4agtg"])
+                ),
                 isDisabled: Version(UIDevice.current.systemVersion) < Version("18.1")
             ),
             ToggleST(
@@ -428,7 +497,11 @@ Thanks to:
                         enabled: 1,
                         disabled: 0
                     )
-                ]
+                ],
+                isOn: compareValues(
+                    1, 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "eP/CPXY0Q1CoIqAWn/J97g"])
+                )
             ),
             ToggleST(
                 label: "Disable Wallpaper Parallax",
@@ -438,7 +511,11 @@ Thanks to:
                         enabled: 1,
                         disabled: 0
                     )
-                ]
+                ],
+                isOn: compareValues(
+                    1, 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "UIParallaxCapability"])
+                )
             ),
             ToggleST(
                 label: "Allow installing iPadOS apps",
@@ -449,6 +526,10 @@ Thanks to:
                         disabled: [1, 2]
                     )
                 ],
+                isOn: compareValues(
+                    [1, 2], 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "9MZ5AdH43csAUajl/dU+IQ"])
+                ),
                 isDisabled: UIDevice.current.userInterfaceIdiom != .pad
             ),
             ToggleST(
@@ -459,7 +540,11 @@ Thanks to:
                         enabled: 1,
                         disabled: 0
                     )
-                ]
+                ],
+                isOn: compareValues(
+                    1, 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "EqrsVvjcYDdxHBiQmGhAWw"])
+                )
             ),
             ToggleST(
                 label: "Camera Control",
@@ -470,6 +555,10 @@ Thanks to:
                         disabled: 0
                     )
                 ],
+                isOn: compareValues(
+                    1, 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "CwvKxM2cEogD3p+HYgaW0Q"])
+                ),
                 isDisabled: Version(UIDevice.current.systemVersion) < Version("18.0")
             ),
             ToggleST(
@@ -481,6 +570,10 @@ Thanks to:
                         disabled: 0
                     )
                 ],
+                isOn: compareValues(
+                    1, 
+                    PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "e0HV2blYUDBk/MsMEQACNA"])
+                ),
                 isDisabled: Version(UIDevice.current.systemVersion) < Version("18.0")
             )
         ]

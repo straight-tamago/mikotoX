@@ -92,6 +92,7 @@ struct SparceBoxLogView: View {
                         .font(.system(size: 12).monospaced())
                         .fixedSize(horizontal: false, vertical: false)
                         .textSelection(.enabled)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     Spacer()
                         .id(0)
                 }

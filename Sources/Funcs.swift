@@ -38,3 +38,24 @@ extension UIDocumentPickerViewController {
         return fix_init(forOpeningContentTypes: contentTypes, asCopy: true)
     }
 }
+
+func compareValues(_ value1: Any?, _ value2: Any?) -> Bool {
+    if value1 == nil || value2 == nil {
+        return false
+    }
+    switch (value1, value2) {
+    case (let int1 as Int, let int2 as Int):
+        return int1 == int2
+    case (let string1 as String, let string2 as String):
+        return string1 == string2
+    case (let double1 as Double, let double2 as Double):
+        return double1 == double2
+    case (let bool1 as Bool, let bool2 as Bool):
+        return bool1 == bool2
+    case (let array1 as [Any], let array2 as [Any]):
+        guard array1.count == array2.count else { return false }
+        return zip(array1, array2).allSatisfy { compareValues($0, $1) }
+    default:
+        return false
+    }
+}
