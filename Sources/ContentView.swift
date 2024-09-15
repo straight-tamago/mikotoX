@@ -15,7 +15,7 @@ struct ToggleValueST {
 }
 
 struct ContentView: View {
-    let currentAppVersionString = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+    let currentAppVersionString = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     @ObservedObject var appState = AppState.shared
     @ObservedObject var sparceBox = SparceBox.shared
 
@@ -209,7 +209,7 @@ Thanks to:
 """)
                 }
             }
-            .navigationTitle("mikotoX (SparseBox)")
+            .navigationTitle("mikotoX v\(currentAppVersionString) (SparseBox)")
             .navigationDestination(for: String.self) { view in
                 if view == "ApplyChanges" {
                     SparceBoxLogView()
@@ -254,7 +254,7 @@ Thanks to:
                     )
                 ],
                 isOn: compareValues(
-                    PlistEditor.readValue(filePath: self.originalMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"]), 
+                    2556, 
                     PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"])
                 ),
                 isDisabled: Version(UIDevice.current.systemVersion) < Version("16.0")
@@ -269,7 +269,7 @@ Thanks to:
                     )
                 ],
                 isOn: compareValues(
-                    PlistEditor.readValue(filePath: self.originalMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"]), 
+                    2796, 
                     PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"])
                 ),
                 isDisabled: Version(UIDevice.current.systemVersion) < Version("16.0")
@@ -284,7 +284,7 @@ Thanks to:
                     )
                 ],
                 isOn: compareValues(
-                    PlistEditor.readValue(filePath: self.originalMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"]), 
+                    2622, 
                     PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"])
                 ),
                 isDisabled: getOSBuildVersion() != "22A3354"
@@ -299,7 +299,7 @@ Thanks to:
                     )
                 ],
                 isOn: compareValues(
-                    PlistEditor.readValue(filePath: self.originalMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"]), 
+                    2868, 
                     PlistEditor.readValue(filePath: self.modifiedMobileGestalt!.path, keyPath: ["CacheExtra", "oPeik/9e8lQWMszEjbPzng", "ArtworkDeviceSubType"])
                 ),
                 isDisabled: getOSBuildVersion() != "22A3354"
