@@ -120,7 +120,7 @@ struct ContentView: View {
                     Toggle("Enable Custom Path", isOn: $isCustomPathEnabled)
                     
                     if isCustomPathEnabled {
-                        Button("Select custom path file") {
+                        Button("Select custom file") {
                             showCustomFilePicker.toggle()
                         }
                         
@@ -154,6 +154,7 @@ struct ContentView: View {
                             }
                         }
                         .disabled(selectedFile == nil || customFilePath.isEmpty || !isPathValid)
+                        .disabled(!isReady)
                     }
                 }
                 .fileImporter(isPresented: $showCustomFilePicker, allowedContentTypes: [UTType.data], onCompletion: { result in
