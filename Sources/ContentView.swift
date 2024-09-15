@@ -140,7 +140,7 @@ struct ContentView: View {
                                 .foregroundColor(.red)
                         }
 
-                        Button("Start Restore") {
+                        Button(isReady ? "Start Restore (Ready)" : "Start Restore") {
                             if let from = selectedFile {
                                 let to = URL(fileURLWithPath: customFilePath)
 
@@ -155,7 +155,7 @@ struct ContentView: View {
                             }
                         }
                         .disabled(selectedFile == nil || customFilePath.isEmpty || !isPathValid)
-                        .disabled(!isReady)
+                        // .disabled(!isReady)
                     }
                 }
                 .fileImporter(isPresented: $showCustomFilePicker, allowedContentTypes: [UTType.data], onCompletion: { result in
@@ -188,10 +188,10 @@ struct ContentView: View {
                 Section {
                     Toggle("Reboot after finish restoring", isOn: $reboot)
                     
-                    Button("Apply changes") {
+                    Button(isReady ? "Apply Changes (Ready)" : "Apply Changes") {
                         applyChanges()
                     }
-                    .disabled(!isReady)
+                    // .disabled(!isReady)
 
                     Button("Reset changes") {
                         try! FileManager.default.removeItem(at: modifiedMobileGestalt!)
