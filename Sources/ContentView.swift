@@ -234,7 +234,12 @@ Thanks to:
             
             let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
                 if pairingFile != nil && !isReady {
-                    isReady = ready()
+                    DispatchQueue.global(qos: .background).async {
+                        let isReady = ready()
+                        DispatchQueue.main.async {
+                            self.isReady = isReady
+                        }
+                    }
                 }
             })
 
