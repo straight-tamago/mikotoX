@@ -26,7 +26,6 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 public struct FilePicker<LabelView: View>: View {
-    
     public typealias PickedURLsCompletionHandler = (_ urls: [URL]) -> Void
     public typealias LabelViewContent = () -> LabelView
     
@@ -97,5 +96,4 @@ public struct FilePicker<LabelView: View>: View {
         })
     }
     #endif
-    
 }
