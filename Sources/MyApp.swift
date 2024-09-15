@@ -20,13 +20,6 @@ struct MyApp: App {
 
     init() {
         setenv("USBMUXD_SOCKET_ADDRESS", "127.0.0.1:27015", 1)
-
-        // let fixMethod = class_getInstanceMethod(UIDocumentPickerViewController.self, Selector("fix_initForOpeningContentTypes:asCopy:"))!
-        // let origMethod = class_getInstanceMethod(UIDocumentPickerViewController.self, Selector("initForOpeningContentTypes:asCopy:"))!
-        // method_exchangeImplementations(origMethod, fixMethod)
-        // let fixMethod = class_getInstanceMethod(UIDocumentPickerViewController.self, #selector(UIDocumentPickerViewController.fix_init(forOpeningContentTypes:asCopy:)))!
-        // let origMethod = class_getInstanceMethod(UIDocumentPickerViewController.self, #selector(UIDocumentPickerViewController.init(forOpeningContentTypes:asCopy:)))!
-        // method_exchangeImplementations(fixMethod, origMethod)
     }
 
     var body: some Scene {

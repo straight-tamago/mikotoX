@@ -16,6 +16,7 @@ struct ToggleValueST {
 struct ContentView: View {
     let currentAppVersionString = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
     @ObservedObject var appState = AppState.shared
+    @ObservedObject var sparceBox = SparceBox.shared
 
     @State var showPairingFileImporter = false
     @AppStorage("PairingFile") var pairingFile: String?
@@ -30,6 +31,7 @@ struct ContentView: View {
     @State var selectedFile: URL?
     @State var customFilePath: String = ""
     @State var isCustomPathEnabled = false
+    @State private var isPathValid: Bool = true
 
     @State private var toggles: [ToggleST] = []
     
@@ -46,6 +48,13 @@ struct ContentView: View {
 
     func applyChanges() {
         if ready() {
+            sparceBox.reboot = reboot
+            sparceBox.restoreFiles = [
+                RestoreFileST(
+                    from: modifiedMobileGestalt!,
+                    to: URL(fileURLWithPath: "/var/containers/Shared/SystemGroup/systemgroup.com.apple.mobilegestaltcache/Library/Caches/com.apple.MobileGestalt.plist")
+                )
+            ]
             path.append("ApplyChanges")
         } else {
             appState.showAlert(alertTitle: "Error", alertMessage: "minimuxer is not ready. Ensure you have WiFi and WireGuard VPN set up.")
@@ -58,11 +67,21 @@ struct ContentView: View {
         method_exchangeImplementations(origMethod, fixMethod)
     }
 
+    func isPathValid(_ path: String) -> Bool {
+        let blockedPaths = ["/var/containers", "/var/preferences"]
+        for blockedPath in blockedPaths {
+            if path.hasPrefix(blockedPath) {
+                return true
+            }
+        }
+        return false
+    }
+
     var body: some View {
         NavigationStack(path: $path) {
             List {
                 Section {
-                    Button(pairingFile == nil ? "Select pairing file " : "Reset pairing file") {
+                    Button(pairingFile == nil ? "Select pairing file" : "Reset pairing file") {
                         if pairingFile == nil {
                             showPairingFileImporter.toggle()
                         } else {
@@ -97,7 +116,7 @@ struct ContentView: View {
                     }
                 })
 
-                 Section {
+                Section {
                     Toggle("Enable Custom Path", isOn: $isCustomPathEnabled)
                     
                     if isCustomPathEnabled {
@@ -111,17 +130,40 @@ struct ContentView: View {
                         
                         TextField("Enter destination path", text: $customFilePath)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding()
+                            .onChange(of: customFilePath) { newValue in
+                                isPathValid = isPathValid(newValue)
+                            }
                         
+                        if !isPathValid {
+                            Text("Invalid path. Access to this directory is blocked.")
+                                .foregroundColor(.red)
+                        }
+
                         Button("Start Restore") {
                             if let from = selectedFile {
                                 let to = URL(fileURLWithPath: customFilePath)
-                                DoRestore(from: from, to: to)
+
+                                sparceBox.reboot = reboot
+                                sparceBox.restoreFiles = [
+                                    RestoreFileST(
+                                        from: from,
+                                        to: to
+                                    )
+                                ]
+                                path.append("ApplyChanges")
                             }
                         }
-                        .disabled(selectedFile == nil || customFilePath.isEmpty)
+                        .disabled(selectedFile == nil || customFilePath.isEmpty || !isPathValid)
                     }
                 }
+                .fileImporter(isPresented: $showCustomFilePicker, allowedContentTypes: [UTType.data], onCompletion: { result in
+                    switch result {
+                    case .success(let url):
+                        selectedFile = url
+                    case .failure(let error):
+                        appState.showAlert(alertTitle: "Error", alertMessage: error.localizedDescription)
+                    }
+                })
 
                 Section {
                     ForEach($toggles.indices, id: \.self) { index in
@@ -151,7 +193,7 @@ struct ContentView: View {
 
                     Button("Reset changes") {
                         try! FileManager.default.removeItem(at: modifiedMobileGestalt!)
-                        try! FileManager.default.removeItem(at: originalMobileGestalt!)
+                        try! FileManager.default.copyItem(at: originalMobileGestalt!, to: modifiedMobileGestalt!)
                     }
                 } footer: {
                     Text("""
@@ -168,7 +210,7 @@ Thanks to:
             .navigationTitle("mikotoX (SparseBox)")
             .navigationDestination(for: String.self) { view in
                 if view == "ApplyChanges" {
-                    LogView(mgURL: modifiedMobileGestalt!, reboot: reboot)
+                    SparceBoxLogView()
                 }
             }
         }
@@ -190,7 +232,7 @@ Thanks to:
             try! FileManager.default.copyItem(at: url, to: modifiedMobileGestalt!)
             
             let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
-                if pairingFile != nil {
+                if pairingFile != nil && !isReady {
                     isReady = ready()
                 }
             })
