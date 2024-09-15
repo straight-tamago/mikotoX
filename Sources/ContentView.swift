@@ -154,7 +154,7 @@ struct ContentView: View {
                             }
                         }
                         .disabled(selectedFile == nil || customFilePath.isEmpty || !isPathValid)
-                        .disabled(!isReady)
+                        //.disabled(!isReady)
                     }
                 }
                 .fileImporter(isPresented: $showCustomFilePicker, allowedContentTypes: [UTType.data], onCompletion: { result in
@@ -190,7 +190,7 @@ struct ContentView: View {
                     Button("Apply changes") {
                         applyChanges()
                     }
-                    .disabled(!isReady)
+                    //.disabled(!isReady)
 
                     Button("Reset changes") {
                         try! FileManager.default.removeItem(at: modifiedMobileGestalt!)
@@ -199,7 +199,7 @@ struct ContentView: View {
                 } footer: {
                     Text("""
 mikotoX: @little_34306 & straight-tamago
-A terrible app by @khanhduytran0. Use it at your own risk.
+An incredible app by @khanhduytran0. Use it at your own risk.
 Thanks to:
 @SideStore: em_proxy and minimuxer
 @JJTech0130: SparseRestore and backup exploit
