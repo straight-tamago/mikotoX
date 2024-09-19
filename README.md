@@ -54,4 +54,5 @@ Please use the tool responsibly and ensure you follow all precautions to avoid a
 - @JJTech0130: SparseRestore and backup exploit
 - @PoomSmart: MobileGestalt dump
 - @libimobiledevice
+- @onejailbreak_: Icon
 
