@@ -2,6 +2,8 @@
 ## iOS /iPadOS 16.0 - 18.0 RC / 18.1 beta 3
 ### Developers: [@little_34306](https://x.com/little_34306) | [@straight-tamago](https://x.com/straight_tamago)
 
+<img width="100" alt="icon" src="https://github.com/user-attachments/assets/fa574df5-3baf-40ee-904f-5086f3ad2e8e">
+
 <a href="https://github.com/straight-tamago/mikotoX/releases/latest"><img src="https://img.shields.io/github/v/release/straight-tamago/mikotoX?color=d774d5" /></a>  <a href="https://github.com/straight-tamago/mikotoX/releases"><img src="https://img.shields.io/github/downloads/straight-tamago/mikotoX/total?color=d774d5" /></a>
 
 TrollRestore brings numerous customization features to iOS devices, allowing you to tweak your system for a more personalized experience. **Use at your own risk**, as there is a high risk of bootlooping. **Make sure to backup your phone before use!**
